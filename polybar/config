@@ -1,0 +1,349 @@
+[bar/i3wmthemer_bar]
+monitor = ${env:MONITOR:}
+
+bottom = true
+
+separator = |
+
+width = 100%
+height = 15
+radius = 3
+fixed-center = false
+
+background = #162025
+foreground = #cccccc
+
+line-size = 3
+line-color = #00ffffff
+
+border-size = 0
+border-color = #00ffffff
+
+padding-left = 0
+padding-right = 0
+
+module-margin-left = 2
+module-margin-right = 2
+
+font-0 = "Fantasque Sans Mono:pixelsize=6;1"
+font-1 = "Material Icons:size=6;1"
+
+modules-left = i3
+modules-center =
+modules-right = vpn-openvpn-status volume memory cpu temperature battery wlan date powermenu
+
+tray-position = center
+tray-padding = 2
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[module/i3]
+pin-workspaces = true
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = true
+
+label-mode-padding = 2
+label-mode-foreground = #cccccc
+label-mode-background = #193a48
+
+;label-focused = %index%
+label-focused = %name%
+label-focused-background = #294a58
+label-focused-foreground = #cccccc
+label-focused-padding = 2
+
+;label-unfocused = %index%
+label-unfocused = %name%
+label-unfocused-background = #193a48
+label-unfocused-foreground = #888888
+label-unfocused-padding = 2
+
+;label-visible = %index%
+label-visible = %name%
+label-visible-background = #294a58
+label-visible-foreground = #162025
+label-visible-padding = 2
+
+;label-urgent = %index%
+label-urgent = %name%
+label-urgent-background = #BA2922
+label-urgent-padding = 2
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 5
+warn-temperature = 65
+
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input
+
+format = <ramp> <label>
+;format-underline = #f50a4d
+format-warn = <ramp> <label-warn>
+;format-warn-underline = ${self.format-underline}
+
+label = %temperature-f%
+label-warn = HOT! %temperature-f%
+label-warn-foreground = #f00
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = #66
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+format = <label> <ramp-coreload>
+label =
+ramp-coreload-0 = ▁
+ramp-coreload-0-font = 1
+ramp-coreload-0-foreground = #aaff77
+ramp-coreload-1 = ▂
+ramp-coreload-1-font = 1
+ramp-coreload-1-foreground = #aaff77
+ramp-coreload-2 = ▃
+ramp-coreload-2-font = 1
+ramp-coreload-2-foreground = #aaff77
+ramp-coreload-3 = ▄
+ramp-coreload-3-font = 1
+ramp-coreload-3-foreground = #aaff77
+ramp-coreload-4 = ▅
+ramp-coreload-4-font = 1
+ramp-coreload-4-foreground = #fba922
+ramp-coreload-5 = ▆
+ramp-coreload-5-font = 1
+ramp-coreload-5-foreground = #fba922
+ramp-coreload-6 = ▇
+ramp-coreload-6-font = 1
+ramp-coreload-6-foreground = #ff5555
+ramp-coreload-7 = █
+ramp-coreload-7-font = 1
+ramp-coreload-7-foreground = #ff5555
+
+[module/vpn-openvpn-status]
+type = custom/script
+exec = ~/.config/polybar/polybar-scripts/vpn-openvpn-status.sh
+interval = 5
+click-right = nm-connection-editor &
+
+[module/memory]
+type = internal/memory
+format = <label> <bar-used>
+label = R
+
+bar-used-width = 15
+bar-used-foreground-0 = #aaff77
+bar-used-foreground-1 = #aaff77
+bar-used-foreground-2 = #fba922
+bar-used-foreground-3 = #ff5555
+bar-used-indicator = |
+bar-used-indicator-font = 6
+bar-used-indicator-foreground = #ff
+bar-used-fill = ─
+bar-used-fill-font = 6
+bar-used-empty = ─
+bar-used-empty-font = 6
+bar-used-empty-foreground = #444444
+
+[module/volume]
+type = internal/pulseaudio
+;speaker-mixer = Speaker
+;headphone-mixer = Headphone
+;headphone-id = 16
+;mapped = true
+format-volume = <ramp-volume> <label-volume>
+label-volume = %percentage%%
+format-muted-prefix = " "
+label-muted = MUTE
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-3 = 
+ramp-volume-4 = 
+ramp-volume-5 = 
+ramp-volume-6 = 
+
+click-right = pavucontrol &
+
+[module/wlan]
+type = internal/network
+interface = wlp2s0
+interval = 3.0
+
+format-connected = <ramp-signal> <label-connected>
+format-connected-foreground = #162025
+format-connected-background = #193a48
+format-connected-padding = 2
+label-connected = %essid% %signal%%
+
+format-disconnected =
+
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+ramp-signal-foreground = #ffffff
+
+[module/date]
+type = internal/date
+interval = 5
+
+date =
+date-alt = " %d.%m.%Y"
+
+time = %H:%M
+time-alt = %H:%M
+
+;format-prefix = 
+;format-foreground = #cccccc
+;format-background = #2a474a
+format-padding = 0
+
+label = %time% %date%
+
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = true
+
+format-spacing = 1
+
+label-open = 
+label-open-foreground = #cccccc
+label-close =  cancel
+label-close-foreground = #cccccc
+label-separator = |
+label-separator-foreground = #cccccc
+
+menu-100-0 = reboot
+menu-100-0-exec = menu-open-101
+menu-100-1 = power off
+menu-100-1-exec = menu-open-102
+
+menu-101-0 = cancel
+menu-101-0-exec = menu-open-100
+menu-101-1 = reboot
+menu-101-1-exec = sudo reboot
+
+menu-102-0 = power off
+menu-102-0-exec = sudo poweroff
+menu-102-1 = cancel
+menu-102-1-exec = menu-open-1000
+
+[module/pub-ip]
+type = custom/script
+exec = ~/.config/polybar/pub-ip.sh
+interval = 10
+format-background = #94005D
+format-foreground = #FFFFFF
+format-padding = 2
+label = %{A1:menu-open-0:}%output%%{A}
+
+[module/pub-ip-menu]
+type = custom/menu
+expand-right = true
+
+label-mode-background = #E4007D
+label-open = %{O-20}
+label-open-foreground = #E4007D
+label-close =  cancel
+label-close-foreground = #E4007D
+label-separator = " "
+label-separator-foreground = #cccccc
+
+menu-0-0 = mobyman
+menu-0-0-exec = menu-open-1
+menu-0-1 = nevosoft
+menu-0-1-exec = menu-open-2
+menu-0-2 = stop-all
+menu-0-2-exec = sudo systemctl stop openvpn
+
+menu-1-0 = start
+menu-1-0-exec = sudo systemctl start openvpn@mobyman 
+menu-1-1 = stop
+menu-1-1-exec = sudo systemctl stop openvpn@mobyman
+
+menu-2-0 = start
+menu-2-0-exec = sudo systemctl start openvpn@nevosoft
+menu-2-1 = stop
+menu-2-1-exec = sudo systemctl stop openvpn@nevosoft
+
+[module/backlight]
+type = custom/script
+exec = ~/.config/polybar/backlight.sh
+interval = 10
+format-background = #2a474
+format-foreground = #E4007D
+format-padding = 1
+label = %output%%
+
+
+[module/owm]
+type = custom/script
+exec = ~/.config/polybar/owm.sh
+interval = 600
+label-font = 4
+format-foreground = #ffff00
+
+[module/battery]
+type = internal/battery
+full-at = 99
+time-format = %H:%M
+battery = BAT0
+adapter = AC
+
+format-charging = <animation-charging> <label-charging>
+;label-charging = %percentage%% (%time%)
+label-charging = %percentage%%
+format-discharging = <ramp-capacity> <label-discharging>
+;label-discharging = %percentage%% (%time%)
+label-discharging = %percentage%%
+format-full = <label-full>
+
+format-full-prefix = " "
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+ramp-capacity-0-foreground = #e53935
+ramp-capacity-1-foreground = #fdd835
+ramp-capacity-2-foreground = #fdd835
+ramp-capacity-3-foreground = #fdd835
+ramp-capacity-4-foreground = #7cb342
+bar-capacity-width = 10
+
+animation-charging-0 = ""
+animation-charging-1 = ""
+animation-charging-2 = ""
+animation-charging-3 = ""
+animation-charging-4 = ""
+animation-charging-0-foreground = #e53935
+animation-charging-1-foreground = #e53935
+animation-charging-2-foreground = #c0ca33
+animation-charging-3-foreground = #c0ca33
+animation-charging-4-foreground = #c0ca33
+
+
+animation-charging-framerate = 750
+
+[module/keyboard]
+type = internal/xkeyboard
+
+; List of indicators to ignore
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+
+[settings]
+screenchange-reload = true
+
+[global/wm]
+margin-top = 22MM
+margin-bottom = 0
