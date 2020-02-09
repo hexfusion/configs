@@ -25,7 +25,7 @@ padding-right = 0
 module-margin-left = 2
 module-margin-right = 2
 
-font-0 = "Fantasque Sans Mono:pixelsize=6;1"
+font-0 = "Fantasque Sans Mono:pixelsize=8;1"
 font-1 = "Material Icons:size=6;1"
 
 modules-left = i3
